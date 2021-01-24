@@ -3,5 +3,6 @@
     "python.linting.enabled": true,
     "breadcrumbs.enabled": true,
     "editor.smoothScrolling": true, 
-    "editor.cursorSmoothCaretAnimation": true
+    "editor.cursorSmoothCaretAnimation": false,
+    "python.linting.pylintEnabled": false
 }

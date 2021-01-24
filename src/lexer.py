@@ -18,14 +18,22 @@ class Lexer:
         self.ops = words['ops']
         self.seps = words['seps']
         self.token_list = []
-   
+
+   #CHECK FUNCTIONS
    def remove_whitespace(self):
       for l in self.sen_lexed: 
          if l == " ":
             self.sen_lexed.remove(" ")
          else: 
             pass
-
+   
+   def empty(self):
+      if self.sen == "":
+         return True
+      else:
+         False
+   
+   #TOKEN MANIPULATION
    def update_token_list(self, token):
       self.token_list.append(token)
    
@@ -43,31 +51,26 @@ class Lexer:
             seps_index = self.seps[0].index(self.sen_lexed[i])
             temp_token = self.seps[1][seps_index]
             self.update_token_list(f"SEP: {temp_token}")
-         
-         elif self.sen_lexed[i] and self.sen_lexed[i+1] == '-':
-            if self.sen_lexed[i+2] == '>':
-               self.update_token_list(self.seps[1][2])
-               
-         
+
          #CHECKS FOR OPERATIONS
          elif self.sen_lexed[i] in self.ops[0]: 
             op_symbol = self.ops[0].index(self.sen_lexed[i])
             temp_token = self.ops[1][op_symbol]
             self.update_token_list(f"OP: {temp_token}")
-         
       
    def main(self):
-      self.remove_whitespace()
-      self.check_tokens()
-      return self.token_list
-
-class Error:
-   @staticmethod
-   def check_next_token():
-      pass
+      if self.empty():
+         pass
+      else:
+         self.remove_whitespace()
+         self.check_tokens()
+         return self.token_list
 
 if __name__ == "__main__":
    while True:
       lexed_input = input(">>> ")
-      lexer_sen = Lexer(lexed_input)
-      print(lexer_sen.main())
+      if lexed_input == "gtfo()":
+         exit()
+      else:
+         lexer_sen = Lexer(lexed_input)
+         lexer_sen.main()
