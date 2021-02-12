@@ -1,14 +1,6 @@
-"""
-Features of the Programming Language: 
-    1.) Simple arithmetic operations 
-    2.) Print functions 
-    3.) Init variables
-    4.) Exiting out of interperter
-
-1.) Simple arithmetic operations 
-"""
-
+import re as regex
 from words import words
+
 
 class Lexer:
    def __init__(self, sen):
@@ -19,7 +11,7 @@ class Lexer:
         self.seps = words['seps']
         self.token_list = []
 
-   #CHECK FUNCTIONS
+   #CHECK METHODS
    def remove_whitespace(self):
       for l in self.sen_lexed: 
          if l == " ":
@@ -51,6 +43,9 @@ class Lexer:
             seps_index = self.seps[0].index(self.sen_lexed[i])
             temp_token = self.seps[1][seps_index]
             self.update_token_list(f"SEP: {temp_token}")
+         
+         elif self.sen_lexed[i] in self.seps[0][2][0] and self.sen_lexed[i:3] == self.seps[0][2]:
+               self.update_token_list(self.seps[1][2])
 
          #CHECKS FOR OPERATIONS
          elif self.sen_lexed[i] in self.ops[0]: 
@@ -65,12 +60,3 @@ class Lexer:
          self.remove_whitespace()
          self.check_tokens()
          return self.token_list
-
-if __name__ == "__main__":
-   while True:
-      lexed_input = input(">>> ")
-      if lexed_input == "gtfo()":
-         exit()
-      else:
-         lexer_sen = Lexer(lexed_input)
-         lexer_sen.main()
